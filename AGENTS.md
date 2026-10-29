@@ -1,0 +1,1 @@
+先去阅读 pragmatic-code-engineering 和 stc
