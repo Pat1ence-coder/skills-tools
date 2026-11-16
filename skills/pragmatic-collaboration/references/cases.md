@@ -34,6 +34,50 @@ When reporting a blocker that affects a required check, name the dependency and 
 
 The revised wording lets the user understand the action or blocker without translating jargon. If the user must supply the configuration, state that request separately.
 
+## Direct concept names
+
+### 中文：直接命名概念
+
+背景：用陈述句说明现有材料支持的概念和工作领域。
+
+**短语示例**
+
+- 原句：“为什么选择这种设计”
+- 改写：“设计选择的理由”
+
+**原句**
+
+> 现有材料对任务怎么出、设计选择怎么评、结果怎么验证都提供了具体依据.
+
+**改写**
+
+> 现有材料为任务生成、设计评估和结果验证提供了具体依据。
+
+**理由**
+
+原句用“怎么……”的问句形式罗列工作领域。改写直接写出概念，保留了材料提供具体依据的原意。使用“设计选择的理由”这样的名称后，仍须按任务要求交代具体理由。实际提问或明确提出研究问题时，可使用问句。
+
+### English
+
+Context: a declarative summary names concepts and areas of work supported by existing material.
+
+**Phrase example**
+
+- Before: "why this design was chosen"
+- After: "the rationale for this design"
+
+**Before**
+
+> The existing material provides a concrete basis for how tasks are generated, how design choices are evaluated, and how results are verified.
+
+**After**
+
+> The existing material provides a concrete basis for task generation, design evaluation, and result verification.
+
+**Why**
+
+The original wording lists areas of work as embedded questions. The revision names them directly and preserves the claim that the material provides a concrete basis. A label such as "design rationale" still needs its supporting reasons when the task calls for them. Keep question forms when asking a real question or defining a research question.
+
 ## Unnecessary qualifications
 
 ### 中文：多余的否定补充
@@ -104,37 +148,49 @@ This sentence connects an observed problem to the chosen action. It explains why
 
 ## Research value
 
-### 中文：具体说明研究价值
+### 中文：研究价值与句子衔接
 
-背景：用户提供了 `verl #6974` 的评审实验描述，希望说明模型与维护者的不同处理方式能带来什么研究问题。
+背景：用户提供了 `verl #6974` 的评审实验描述，希望说明模型与维护者的不同处理方式能带来什么研究问题，并让选择与维护影响的叙述衔接自然。
 
-**原句**
+**原句：研究价值笼统**
 
 > 在 verl #6974 的评审实验中，模型发现编码选项有问题后，建议加校验或补实现；维护者选择删除不需要的选项。模型识别出了缺陷，处理方式却留下不同的维护成本。这给“如何修、保留什么、简化什么”提供了实际研究样本。
 
+**原句：选择与影响分离**
+
+> 在 verl #6974 的评审实验中，模型发现编码选项有问题，建议增加校验或补齐实现；维护者选择删除不需要的选项。采用模型的建议，仍需维护这个选项；删除它则缩小了维护范围。
+
 **改写**
 
-> 在 verl #6974 的评审实验中，模型发现编码选项有问题，建议增加校验或补齐实现；维护者选择删除不需要的选项。采用模型的建议，需要继续维护这个选项；删除它则缩小了维护范围。后续评审可以据此考察：模型提出修复建议时，是否会判断功能的必要性，并比较不同方案的维护成本。
+> 在 verl #6974 的评审实验中，模型发现编码选项有问题，建议增加校验或补齐实现。这两种方案都会保留该选项，后续还需要维护相应逻辑。维护者则选择删除不需要的选项，从而缩小维护范围。后续评审可以据此考察：模型提出修复建议时，是否会判断功能的必要性，并比较不同方案的维护成本。
 
 **理由**
 
-上下文为研究意图提供了具体依据，因此保留这层意思。将笼统的价值评价改成具体研究问题：模型如何考虑功能的必要性和维护成本。改写保留了两种建议和维护者的选择，并用条件句描述采用模型建议后的影响。
+上下文为研究意图提供了具体依据，因此保留这层意思。将笼统的价值评价改成具体研究问题：模型如何考虑功能的必要性和维护成本。改写保留了两种建议和维护者的选择，并将模型建议的维护影响表述为预期。
+
+衔接问题来自叙述顺序：先列出两方的选择，再回头分别解释影响，导致叙述来回切换。改写先说明模型的方案及其维护影响，再说明维护者的选择及其影响，让读者顺着因果关系理解两种处理方式。
 
 ### English
 
-Context: the user supplied an account of a review experiment involving `verl #6974` and wanted to explain what could be learned from the model's and maintainer's different responses. The English passages translate the supplied Chinese account and its revision.
+Context: the user supplied an account of a review experiment involving `verl #6974` and wanted to explain its research value while connecting each choice to its maintenance consequences. The English passages translate the supplied Chinese examples and their revision.
 
-**Before**
+**Before: vague research value**
 
 > In the review experiment for verl #6974, the model found a problem with an encoding option and suggested adding validation or completing the implementation. The maintainer chose to delete the unnecessary option. The model identified the defect, while the different remedies carried different maintenance costs. This provides a concrete research example for how to fix issues, what to retain, and what to simplify.
 
+**Before: choices separated from consequences**
+
+> In the review experiment for verl #6974, the model found a problem with an encoding option and suggested adding validation or completing the implementation; the maintainer chose to delete the unnecessary option. Following the model's recommendation would still require maintaining that option; deleting it reduces the scope of maintenance.
+
 **After**
 
-> In the review experiment for verl #6974, the model found a problem with an encoding option and suggested adding validation or completing the implementation. The maintainer chose to delete the unnecessary option. Following the model's recommendation would require continuing to maintain that option; deleting it reduces the scope of maintenance. Future reviews could examine whether a model assesses the need for a feature and compares the maintenance costs of different remedies when proposing a fix.
+> In the review experiment for verl #6974, the model found a problem with an encoding option and suggested adding validation or completing the implementation. Both approaches would retain the option and require continued maintenance of its logic. The maintainer chose to delete the unnecessary option, reducing the scope of maintenance. Future reviews could examine whether a model assesses the need for a feature and compares the maintenance costs of different remedies when proposing a fix.
 
 **Why**
 
-The context gives the research purpose a concrete basis, so retain that purpose. Replace the broad claim that the case is useful with the specific question it motivates: how the model considers feature necessity and maintenance cost. The revision preserves both proposed remedies and the maintainer's choice, and describes the consequences of the model's recommendation conditionally.
+The context gives the research purpose a concrete basis, so retain that purpose. Replace the broad claim that the case is useful with the specific question it motivates: how the model considers feature necessity and maintenance cost. The revision preserves both proposed remedies and the maintainer's choice, and presents the maintenance effects of the model's recommendation as expected consequences.
+
+The flow problem comes from listing both choices before returning to explain their consequences, which makes the narrative switch back and forth. The revision groups the model's proposals with their maintenance implications, then presents the maintainer's choice and its effect. This order keeps each causal connection together.
 
 ## Interpreting metrics
 
@@ -157,3 +213,107 @@ Assume the acceptance target is an export success rate of at least 99%, and the 
 > Of 100 export attempts, 92 succeeded. The success rate is 92%, which is 7 percentage points below the acceptance target. Next, inspect the logs from the 8 failed attempts for a common cause before choosing a fix.
 
 The sample, target, and next action make the number useful for a decision. Use values and targets supported by the actual task when applying this pattern.
+
+## Self-contained technical explanations
+
+### 中文：自足的技术说明
+
+背景：用户提供了一份关于 Relax 的调研说明，其中包含源码对照数量、局部函数复现结果和两个缺陷案例。读者需要理解这些记录对评测的用途，即使没有参与调查过程。
+
+**原句**
+
+> Relax 已有 15 条源码前后对照，其中 3 条完成局部行为复现。例如，缺少 expected 时从误判 PASS 改为 FAIL，两个入口对同一模型别名从处理不一致改为一致。这些条目有明确输入和预期输出，可以通过执行代码判定。
+
+**问题**
+
+原句省略了工具用途、变量含义、故障后果和实验范围。读者看到了数量和状态变化，却缺少理解变化及其评估用途的背景。
+
+**改写示例**
+
+这份材料整理了 15 个评审问题的修改前后代码。其中 3 个已执行实际函数，并记录输入输出。这些源码对照和执行记录可用于构造任务专用测试，并检查测试能否识别历史缺陷。
+
+**缺少参考结果时误报通过**
+
+Relax 的轨迹重放工具保存训练中的数据和计算结果，随后重新计算，并将新结果与保存的结果比较。`expected` 是保存的参考结果，`actual` 是重新计算的结果，例如某个样本的奖励值（reward）。
+
+旧实现缺少参考结果时，仍然可能返回 `PASS`。工具没有完成比较，却向调用方报告验证通过。
+
+对相同输入分别执行修改前后的比较函数，得到以下结果：
+
+| 保存的参考结果（`expected`） | 重算结果（`actual`） | 修改前 | 修改后 |
+|---|---|---|---|
+| 1 | 1 | PASS | PASS |
+| 2 | 1 | FAIL | FAIL |
+| 缺失 | 1 | PASS | FAIL |
+
+对应的评分要求是：缺少必需的参考结果时，验证工具必须拒绝报告通过。向待评测实现提供缺少参考结果的输入，检查返回状态，就能发现误报成功的问题。
+
+**两个入口的选模结果不一致**
+
+统一推理服务需要根据请求中的模型名称选择实际部署的模型。本例只部署了默认模型 `m1`，客户端请求的名称是 `served-name`。该项目的单模型兼容策略允许将 `served-name` 映射到默认模型 `m1`。
+
+这项兼容规则原先只在内部执行器中处理，修改后集中到公共选模函数。给两处逻辑提供相同的部署信息和请求名称，结果如下：
+
+| 选模入口 | 修改前 | 修改后 |
+|---|---|---|
+| 内部执行器 | 选中 `m1` | 选中 `m1` |
+| 公共选模函数 | 拒绝：未知模型 | 选中 `m1` |
+
+对应的评分要求是：在这个单模型兼容场景下，两处逻辑都必须选中 `m1`。向两处提供相同输入，以两者都返回预期模型作为通过条件，可以发现只修复一条调用路径的问题。
+
+**改写依据**
+
+改写保留了统计结果，并说明每个数量的含义：15 个问题有源码前后对照，其中 3 个有函数执行记录。工具用途和术语解释帮助读者理解检查目的；输入输出对照说明触发条件、行为变化和故障后果；评分要求将这些记录连接到具体评测任务。
+
+说明围绕当前结论展开。用户明确熟悉的概念可直接使用，专业经验或前序参与不能代替理解这次结果所需的实现背景。
+
+### English
+
+Context: the user supplied a research summary about Relax containing counts of source comparisons, local function reproductions, and two defect examples. The reader needs to understand how these records support evaluation, even without participating in the investigation.
+
+**Before**
+
+> Relax already has 15 before-and-after source comparisons, 3 of which have local behavior reproductions. For example, a missing expected changes from an incorrect PASS to FAIL, and two entry points change from inconsistent to consistent handling of the same model alias. These entries have explicit inputs and expected outputs and can be judged by executing code.
+
+**Problem**
+
+The original omits the tool's purpose, the variables' meanings, the consequences of the defects, and the scope of the experiments. Counts and status changes alone leave the reader without enough context to interpret the findings or their evaluation use.
+
+**Revised example**
+
+The material contains before-and-after code for 15 review issues. For 3 of those issues, actual functions have been executed and their inputs and outputs recorded. These source comparisons and execution records can support task-specific tests and checks of whether those tests detect historical defects.
+
+**Reporting success without a reference result**
+
+Relax's trajectory replay tool saves data and computed results during training, then repeats the computation and compares the new results with the saved ones. `expected` is the saved reference result; `actual` is the recomputed result, such as the reward for a sample.
+
+The old implementation could return `PASS` when the reference result was missing. It reported successful verification to the caller even though no comparison had been completed.
+
+Executing the old and new comparison functions with the same inputs produced these results:
+
+| Saved reference (`expected`) | Recomputed result (`actual`) | Before | After |
+|---|---|---|---|
+| 1 | 1 | PASS | PASS |
+| 2 | 1 | FAIL | FAIL |
+| Missing | 1 | PASS | FAIL |
+
+The scoring requirement is that a verification tool must refuse to report success when a required reference result is missing. Supply an input without that reference and inspect the returned status to detect a false success report.
+
+**Inconsistent model selection across two entry points**
+
+The unified inference service selects a deployed model using the model name in a request. In this example, `m1` is the only deployed model and is configured as the default. The client requests `served-name`. The project's single-model compatibility policy permits mapping `served-name` to the default model, `m1`.
+
+Previously, only the internal executor applied this compatibility rule. The change centralizes it in the public model-selection function. With the same deployment information and requested name, the results are:
+
+| Selection entry point | Before | After |
+|---|---|---|
+| Internal executor | Selects `m1` | Selects `m1` |
+| Public model-selection function | Rejects the request as an unknown model | Selects `m1` |
+
+The scoring requirement is that both paths must select `m1` in this single-model compatibility scenario. Provide the same input to both paths and require both to return the expected model. This exposes a fix that updates only one call path.
+
+**Why**
+
+The revision retains the statistics and defines their units: 15 issues have before-and-after source comparisons, and 3 of them have function execution records. The tool description and term definitions establish the purpose of the checks. The input/output comparisons explain triggers, behavior changes, and consequences. The scoring requirements connect these records to specific evaluation tasks.
+
+The explanation stays focused on the current conclusion. Explicitly familiar concepts can be used directly; professional expertise or earlier involvement does not replace the implementation context needed to understand this result.
