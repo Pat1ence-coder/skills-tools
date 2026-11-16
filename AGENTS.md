@@ -1,4 +1,4 @@
-先阅读 `pragmatic-code-engineering` 和 `stc`。
+先阅读 `pragmatic-code-engineering`, `pragmatic-collaboration` 和 `stc`。
 
 ## Git 提交
 
