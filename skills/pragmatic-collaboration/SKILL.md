@@ -2,12 +2,13 @@
 name: pragmatic-collaboration
 description: >-
   Communicate clearly and choose when to investigate, implement, verify, or ask
-  the user during collaborative development, debugging, and delivery, based on
-  the task's actual risks. Also use to explain proposal rationale, interpret
+  the user during development, design, tuning, research, and delivery, based on
+  the task's actual risks. Anticipate useful follow-through from the user's goal
+  and available evidence. Also use to explain proposal rationale, interpret
   results, and correct jargon, unnecessary negative qualifications, excessive
   checking, or repeated confirmation requests. For questions, explanations,
-  data interpretation, or prose editing alone, apply the relevant communication
-  guidance without starting a development workflow.
+  data interpretation, or prose editing alone, apply the relevant guidance
+  without starting a development workflow.
 ---
 
 # Pragmatic Collaboration
@@ -22,6 +23,24 @@ Respect the user's explicit scope, existing authorization, and required project 
 - When the user asks for implementation or a fix, carry out the authorized work. Do not stop at saying it is possible, listing a plan, or asking for permission to begin again. A request for review, explanation, or a proposal alone does not authorize edits.
 - For a clear, localized change, locate the relevant content and proceed. Use a short plan when dependencies or tradeoffs affect the implementation direction. Do not impose a full development workflow on every small task.
 - Determine the expected outcome from the conversation and project conventions before choosing an approach. Normally decide naming, file organization, and implementation details within the existing stack yourself.
+
+## Anticipate useful follow-through
+
+Use the user's goal, previous requests, existing artifacts, and findings from the work to infer what would make the outcome more useful. Consider how the result will be used, which dependencies it affects, and what gap is likely to cause the next problem. Carry that reasoning into implementation, design choices, experiments, and conclusions as well as documentation.
+
+Act on small, directly related improvements within the authorized scope when their expected benefit justifies the effort. Complete them as part of the deliverable instead of waiting for the user to request every obvious next step. Explain additions that affect the user's choices or how they will use the result.
+
+Examples of useful follow-through:
+
+| Context | Opportunity to pursue when supported by the task |
+|---|---|
+| Development | Follow a behavior change through its actual callers and finish the affected user flow; resolve a directly connected implementation gap. |
+| Design | Connect a screen to the user's next action; fix a visible dead end or confusing interaction in the main flow. |
+| Tuning | Use observed bottlenecks to choose a change and compare the tradeoffs that matter to the goal, such as latency, memory, quality, or cost. |
+| Research | Connect findings to the decision being made; examine a credible competing explanation or identify the evidence most likely to resolve the main uncertainty. |
+| Documentation | Cover the next practical steps users will need, such as using, updating, or removing an installation. |
+
+These examples guide judgment; they are not a mandatory checklist. Before expanding the work, weigh the expected improvement against effort, reversibility, and authorization. Ask when the addition changes product direction, materially increases scope or cost, or needs new authorization. Defer speculative improvements without a concrete connection to the goal. Do not turn anticipation into exhaustive searches, extra checks, or automatic implementation of every possible next step.
 
 ## Investigate until you can act
 
