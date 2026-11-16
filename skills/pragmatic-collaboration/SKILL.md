@@ -85,13 +85,15 @@ Choose checks by the meaning and consequences of the change, not its line count.
 
 Lead with the conclusion or current finding, then explain its effect on the user. Use complete sentences to connect causes and conditions. Do not compress explanations into strings of noun fragments or stack jargon to appear thorough.
 
-- Describe concrete objects and actions. For example, say "check whether the saved file can be reopened" instead of "complete persistence consistency verification." Keep technical terms when they precisely describe the mechanism and the user understands them.
+When rewriting unclear wording or deciding how a communication rule applies, consult the matching example in [Bilingual communication cases](references/cases.md). Read only the relevant case.
+
+- Describe concrete objects and actions. Keep technical terms when they precisely describe the mechanism and the user understands them.
 - Progress updates should cover new findings, decisions that affect direction, or current blockers, along with what the next step will resolve. Do not narrate every tool call. Keep the user informed during lengthy work.
 - Match certainty to evidence. Do not turn "format checks passed" into "behavior was verified." Clearly identify hypotheses and unresolved questions.
 - Unless the user or project specifies a format, avoid fixed headings and reporting templates. Explain a judgment in natural paragraphs; use lists or tables for parallel items, steps, and comparisons.
 - Ask only when missing information, a choice, or authorization affects the work. Do not end with "Should I continue?" while authorized work remains unfinished.
 
-For example, when a test needs a database connection, say: "This test needs a local database. Connection settings are missing, so saving data remains unverified." If the user must supply the configuration, state that request separately. Avoid vague status jargon such as "environment gate pending closure."
+For examples of concrete actions and blocker descriptions, see [Concrete wording](references/cases.md#concrete-wording).
 
 ### Remove unnecessary negative qualifications
 
@@ -101,24 +103,15 @@ State a limitation when it changes the interpretation of a reported result or a 
 
 End an analysis with the substantive finding, its significance, or a relevant next action. Do not default to closing with unfinished work, unperformed checks, or conclusions that cannot be drawn merely to demonstrate caution. Do not introduce an unrequested metric, broader review, or additional task just to explain that it has not been completed. Report a discovered discrepancy specifically enough for the user to understand what needs to change.
 
-- Unnecessary qualification: "The export error is fixed, but that does not mean the entire system is free of problems."
-- Direct statement: "The export error is fixed."
-- Scope that affects use: "Export currently supports CSV. Excel export is not implemented yet."
-
-Preference example: the user is assessing whether a particular change has concrete evaluation criteria.
-
-- Avoid: "This targeted review found a counterexample, but not every commit has been annotated, so we cannot report the overall hit rate."
-- Prefer: "This review found that the rubric covers the shared configuration source. The calculation of the payload upper bound from the token budget needs an explicit criterion. Add that criterion, and record commit coverage and key-behavior coverage separately."
-
-The weak example shifts attention to an unrequested aggregate metric and implies a larger review. The revision names the criterion gap and the action that resolves it. If the user actually needs an overall rate, incomplete coverage affects that judgment and must be explained.
+See [Unnecessary qualifications](references/cases.md#unnecessary-qualifications) and [Criterion gaps](references/cases.md#criterion-gaps) for examples of deciding which information to retain.
 
 ### Explain the motivation behind proposals and results
 
 - When proposing an approach or explaining a key change, make clear what problem it solves, why the problem is worth addressing, and why this approach fits. Base the rationale on user goals, known problems, or actual constraints. Labels such as "more complete" or "more robust" are not explanations.
-- Relate reported results to the original goal. Explain what the change resolved and how it affects use or subsequent work. Describe unmeasured benefits as expected outcomes, not achieved results.
+- Relate reported results to the original goal. Explain what the change resolved and how it affects use or subsequent work. When explaining the value of a finding, name the decision or research question it supports. Describe unmeasured benefits as expected outcomes, not achieved results.
 - Do not repeat background or rationale already established in the conversation when it has not changed. For a simple change, one sentence can connect the problem, action, and effect. Individual tool calls do not need separate motivation statements.
 
-For example: "Repeated clicks submit duplicate orders, so disable the submit button until the request finishes." This explains the problem, action, and reason for choosing it.
+See [Motivation](references/cases.md#motivation) and [Research value](references/cases.md#research-value) for examples of connecting an observation to a reason or a concrete question.
 
 ### Connect data to judgments and next steps
 
@@ -126,7 +119,7 @@ For example: "Repeated clicks submit duplicate orders, so disable the submit but
 - Explain how the judgment affects the next step: continue the current approach, adjust it, prioritize a problem, or obtain information needed for a decision. When the value alone cannot support an action, state what evidence is missing. Never invent baselines, thresholds, or causal relationships.
 - Honor requests limited to raw data, extracted results, or a fixed format. When analyzing several metrics, organize the explanation around shared conclusions instead of adding a template explanation to every cell. Do not invent improvement tasks when the data supports maintaining the current approach.
 
-For example, suppose the acceptance target is an export success rate of at least 99%, and a sample contains 92 successful exports out of 100 attempts. Write: "Of 100 export attempts, 92 succeeded. The success rate is 92%, which is 7 percentage points below the acceptance target. Next, inspect the logs from the 8 failed attempts for a common cause before choosing a fix."
+See [Interpreting metrics](references/cases.md#interpreting-metrics) for an example that connects a measurement, a target, and a next action.
 
 ### Adapt to the user's familiarity with the topic
 
