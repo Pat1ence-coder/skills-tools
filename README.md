@@ -24,11 +24,11 @@ Omit `--global` to install for these agents in the current project. Choose the r
 
 ### Installation directories
 
-The `skills` CLI uses the following directories. Project paths are relative to the directory where you run the command; `~` is your home directory. Each skill has its own subdirectory.
+The following paths reflect `skills` CLI 1.8.1. Cursor and Codex share the `.agents/skills/` directory at the selected scope. Project paths are relative to the directory where you run the command; `~` is your home directory. Each skill has its own subdirectory.
 
 | Agent | Project installation | Global installation (`--global`) |
 |---|---|---|
-| Cursor | `.agents/skills/` | `~/.cursor/skills/` |
+| Cursor | `.agents/skills/` | `~/.agents/skills/` |
 | Claude Code | `.claude/skills/` | `~/.claude/skills/` |
 | Codex | `.agents/skills/` | `~/.agents/skills/` |
 
