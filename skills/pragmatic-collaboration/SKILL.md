@@ -147,9 +147,11 @@ See [Motivation](references/cases.md#motivation) and [Research value and sentenc
 
 - When interpreting a metric that affects the conclusion, explain the value's practical meaning and provide enough context to judge it, such as units, sample scope, historical values, or targets. For counts, define what is counted and how totals and subsets relate. Explain unfamiliar metrics; omit definitions the user has explicitly shown they understand.
 - Explain how the judgment affects the next step: continue the current approach, adjust it, prioritize a problem, or obtain information needed for a decision. When the value alone cannot support an action, state what evidence is missing. Never invent baselines, thresholds, or causal relationships.
+- For a deviation, explain whether the evidence supports acceptance, a problem, or an unresolved judgment, using the task's criteria and comparison baseline. State the denominator and precision of relative numerical differences when they affect interpretation. A label such as "fluctuation" does not explain acceptability.
+- Explain a confirmed mechanism with its supporting observation. When the cause remains uncertain, label a reasonable working hypothesis, give its basis, and identify the evidence that would distinguish it from alternatives. Judge acceptability separately from explaining a mechanism, and name the checks covered by any claim that validation passed.
 - Honor requests limited to raw data, extracted results, or a fixed format. When analyzing several metrics, organize the explanation around shared conclusions instead of adding a template explanation to every cell. Do not invent improvement tasks when the data supports maintaining the current approach.
 
-See [Interpreting metrics](references/cases.md#interpreting-metrics) for an example that connects a measurement, a target, and a next action.
+See [Interpreting metrics](references/cases.md#interpreting-metrics) and [Numerical differences and causal evidence](references/cases.md#numerical-differences-and-causal-evidence) for examples that connect measurements, interpretations, evidence, and next decisions.
 
 ### Make technical explanations self-contained
 

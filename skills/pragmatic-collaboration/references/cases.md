@@ -317,3 +317,131 @@ The scoring requirement is that both paths must select `m1` in this single-model
 The revision retains the statistics and defines their units: 15 issues have before-and-after source comparisons, and 3 of them have function execution records. The tool description and term definitions establish the purpose of the checks. The input/output comparisons explain triggers, behavior changes, and consequences. The scoring requirements connect these records to specific evaluation tasks.
 
 The explanation stays focused on the current conclusion. Explicitly familiar concepts can be used directly; professional expertise or earlier involvement does not replace the implementation context needed to understand this result.
+
+## Numerical differences and causal evidence
+
+### 中文：解释数值差异与证据强度
+
+背景：用户提供了单卡断点续训的初步汇报，以及后续补充的逐步观测和权重比较。案例依据这些材料整理，重点是说明恢复了哪些内容、数值分歧出现在什么位置，以及哪些解释已经得到支持。
+
+**原回复中的结论**
+
+> 单卡断点续训验证通过。
+>
+> 最终权重存在数值波动。以连续训练后 8 步的权重更新量为基准，连续训练与第一次恢复的最终权重差异为 26.8%，两次独立恢复之间为 32.8%。相同起点重复运行也出现了同量级波动，当前配置能准确恢复训练状态，但后续更新不能逐位复现。
+
+**问题**
+
+“验证通过”没有说明验收范围，“数值波动”没有说明差异是否可接受。读者还需要了解差异最早出现的位置、百分比的参照、精度转换的影响，以及原因解释的证据强度。
+
+**改写示例**
+
+已检查的断点内容和续训位置恢复一致，后续训练出现了数值分歧。权重差异比例的放大已有部分解释，最初梯度范数差异的具体原因仍需定位。
+
+本次用 Qwen3.5-4B 评分的 128 条 GSM8K 轨迹训练 Qwen3.5-0.8B，连续运行 16 步，并从第 8 步的检查点独立恢复两次。
+
+**恢复后的起点与进度**
+
+第 9 步更新前，三次运行的 383 个模型参数张量和 690 个 Adam 状态张量逐项一致。两次恢复读到了与连续训练相同的 8 条样本，第 9 步的学习率均为 1.5e-6，loss 均为 0.214940235。这些结果支持模型参数、已检查的优化器状态和续训位置正确衔接。
+
+第 9–16 步的样本顺序、学习率和 Adam 步数也逐步一致。连续运行完整使用了 128 条样本，每条恰好一次。
+
+**后续数值分歧**
+
+最早可见的差异出现在第 9 步的梯度范数，第 10 步的 loss 随后也出现差异：
+
+| 观测项 | 第一次恢复 | 第二次恢复 |
+|---|---|---|
+| 第 9 步梯度范数 | 20.5148525 | 20.5146503 |
+| 第 10 步 loss | 0.230014 | 0.229259 |
+
+第 16 步权重的比较结果如下。百分比以连续训练从第 8 步到第 16 步的净更新量为分母，每列的分子和分母均使用相应精度的权重计算：
+
+| 比较对象 | Adam 实际更新的 FP32 主权重 | 模型使用的权重，绝大多数为 BF16 |
+|---|---|---|
+| 连续训练与第一次恢复 | 8.6% | 26.8% |
+| 连续训练与第二次恢复 | 12.9% | 32.2% |
+| 第一次恢复与第二次恢复 | 13.0% | 32.8% |
+
+这些比例衡量不同运行之间的最终权重差异相当于本轮净更新量的多少。FP32 主权重用于 Adam 更新，模型权重采用的精度不同，因此两列需要分别解释。
+
+**已有依据的解释与工作假设**
+
+精度转换可以解释差异比例增大这一部分。两次恢复的 FP32 主权重已有相当于净更新量 13.0% 的差异；将这些主权重转换为模型使用的精度后，可以复现 32.8%。两个接近的 FP32 值可能位于 BF16 舍入边界的两侧，转换后相对差异随之放大。
+
+对最初的梯度范数差异，当前工作假设是 GPU 反向计算或梯度归约存在非确定性。本次运行关闭了确定性模式，这为该假设提供了线索；具体算子仍需定位。
+
+**异常性判断与后续处理**
+
+目前可以验收已检查的断点内容和续训位置。训练数值确实发生了分歧，待判定的是恢复操作是否额外放大了当前配置下的重复运行差异。
+
+两次恢复彼此的差异，与各自偏离连续训练的差异处于同一量级。结合恢复起点的参数、Adam 状态和样本一致的结果，当前排查重点是续训计算过程的重复性。
+
+下一步补充同一起点、同一批数据的重复不中断训练对照，采用相同口径比较 FP32 主权重和模型权重的差异范围。这组对照将用于判断恢复操作是否引入额外偏差，再决定后续训练的数值一致性是否符合本次验收要求。
+
+**改写依据**
+
+改写将恢复一致性、后续数值分歧和异常性判断分别说明。逐步观测解释了“接上第 9 步”的具体含义；分母和权重精度解释了百分比；转换后能复现 32.8% 支持精度放大的解释；GPU 计算非确定性仍明确标为假设。所缺的不中断训练对照直接影响异常性判断，因此需要交代其用途。新增数值和配置事实均来自用户补充的材料。
+
+### English
+
+Context: the user supplied an initial report on single-GPU checkpoint resumption, followed by step-level observations and weight comparisons. This case uses that material to explain the restored state, the observed divergence, and the strength of each explanation.
+
+**Original conclusion**
+
+> Single-GPU checkpoint resumption validation passed.
+>
+> Final weights show numerical variation. Relative to the weight update over the last 8 uninterrupted training steps, the final difference between uninterrupted training and the first resumed run is 26.8%, and the difference between two independent resumed runs is 32.8%. Repeated runs from the same starting point also show variation of the same order. The configuration accurately restores training state, but subsequent updates are not bitwise reproducible.
+
+**Problem**
+
+"Validation passed" leaves the acceptance scope unclear, and "numerical variation" does not explain acceptability. The reader needs the earliest observed divergence, the denominator of the percentages, the effect of precision conversion, and the evidence supporting the proposed causes.
+
+**Revised example**
+
+The checked checkpoint contents and resumption position match, while subsequent training shows numerical divergence. Part of the increase in the relative weight difference has an explanation; the specific cause of the initial gradient-norm divergence remains to be identified.
+
+Qwen3.5-0.8B was trained for 16 uninterrupted steps on 128 GSM8K trajectories scored by Qwen3.5-4B. Two independent runs resumed from the step-8 checkpoint.
+
+**Restored starting point and progress**
+
+Before the step-9 update, all 383 model parameter tensors and 690 Adam state tensors matched across the three runs. Both resumed runs read the same 8 samples as uninterrupted training. The step-9 learning rate was 1.5e-6 and the loss was 0.214940235 in all three runs. These observations support correct restoration of the model parameters, checked optimizer state, and resumption position.
+
+Sample order, learning rates, and Adam step counts also matched at each step from 9 through 16. The uninterrupted run used all 128 samples exactly once.
+
+**Subsequent numerical divergence**
+
+The earliest visible difference was in the step-9 gradient norm, followed by a difference in step-10 loss:
+
+| Observation | First resumed run | Second resumed run |
+|---|---|---|
+| Step-9 gradient norm | 20.5148525 | 20.5146503 |
+| Step-10 loss | 0.230014 | 0.229259 |
+
+The step-16 weight comparisons are below. Each percentage uses the uninterrupted run's net update from step 8 to step 16 as its denominator. Within each column, the numerator and denominator use weights at the corresponding precision:
+
+| Runs compared | FP32 master weights updated by Adam | Model weights, mostly BF16 |
+|---|---|---|
+| Uninterrupted and first resumed run | 8.6% | 26.8% |
+| Uninterrupted and second resumed run | 12.9% | 32.2% |
+| First and second resumed runs | 13.0% | 32.8% |
+
+These ratios express the final difference between runs relative to this training segment's net update. Adam updates the FP32 master weights, while the model uses weights at a different precision, so each column needs its own interpretation.
+
+**Supported explanation and working hypothesis**
+
+Precision conversion explains part of the increase in the relative difference. The two resumed runs' FP32 master weights already differ by 13.0% of the reference net update. Converting those master weights to the model's precision reproduces 32.8%. Two nearby FP32 values can fall on opposite sides of a BF16 rounding boundary, amplifying the relative difference after conversion.
+
+The working hypothesis for the initial gradient-norm divergence is nondeterminism in GPU backward computation or gradient reduction. Deterministic mode was disabled in this run, which provides a clue for that hypothesis; the specific operator remains to be identified.
+
+**Acceptability judgment and next action**
+
+The checked checkpoint contents and resumption position can be accepted. Numerical divergence has been observed. The unresolved question is whether resumption adds variation beyond the configuration's repeat-run behavior.
+
+The difference between the two resumed runs is of the same order as each run's difference from uninterrupted training. Together with the matching starting parameters, Adam state, and samples, this directs the next investigation toward reproducibility during continued computation.
+
+Next, add repeated uninterrupted controls using the same starting point and data, and compare FP32 master-weight and model-weight variation using the same metrics. These controls provide a baseline for judging whether resumption introduces additional deviation and whether subsequent training's numerical consistency meets the acceptance requirements.
+
+**Why**
+
+The revision separates restoration consistency, later divergence, and acceptability. Step-level observations explain what resuming at step 9 means. The denominator and weight precision explain the percentages. Reproducing 32.8% through conversion supports the precision-related amplification, while GPU nondeterminism remains explicitly a hypothesis. The missing uninterrupted controls directly affect the acceptability judgment, so their purpose belongs in the explanation. All added measurements and configuration facts come from the user's supplementary material.
