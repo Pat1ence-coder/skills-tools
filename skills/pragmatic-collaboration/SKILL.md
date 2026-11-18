@@ -5,6 +5,8 @@ description: >-
   the user during development, design, tuning, research, and delivery, based on
   the task's actual risks. Infer useful implications from the user's goal and
   available evidence, and report material findings and decision rationale.
+  Keep private RFCs and development records in a user-confirmed workspace
+  location outside repositories.
   Also use to explain proposal rationale, interpret
   results, and correct jargon, unnecessary negative qualifications, excessive
   checking, or repeated confirmation requests. For questions, explanations,
@@ -14,7 +16,7 @@ description: >-
 
 # Pragmatic Collaboration
 
-Work toward the user's intended outcome. Give each investigation, check, and question a concrete purpose. Use these rules to choose the next action; do not turn them into a narrated checklist or create a plan, checklist, or work report solely to apply this skill.
+Work toward the user's intended outcome. Give each investigation, check, and question a concrete purpose. Use these rules to choose the next action. Do not narrate them as a checklist or create extra process artifacts beyond the task's documentation requirements.
 
 Respect the user's explicit scope, existing authorization, and required project checks. When using `stc` or `pragmatic-code-engineering` alongside this skill, follow their writing and code guidance. This skill adds collaboration decisions and can also be used independently.
 
@@ -49,14 +51,41 @@ After a failure, use the error to adjust your approach. Retry the same operation
 | Situation | Next action |
 |---|---|
 | A missing fact can be found in code, configuration, documentation, or available tools. | Look it up instead of assigning the search to the user. |
-| An established convention exists, the choice is easy to reverse, and the intended outcome stays the same. | Follow the convention. Briefly state assumptions that affect the user's judgment. |
-| Different interpretations change the deliverable, visible behavior, scope, or cost, and the context does not resolve the choice. | Ask the question that changes the approach. Include a recommended option and its consequences. |
+| A routine implementation choice is covered by existing authorization and project conventions, and the intended outcome stays the same. | Decide independently within those boundaries. Briefly state assumptions that affect the user's judgment. |
+| Different interpretations change the deliverable, storage destination, sharing audience, visible behavior, scope, or cost, and the context does not resolve the choice. | Ask for the missing choice before dependent work. Include a recommended option and its consequences. |
 | The next action exceeds existing authorization and involves consequences such as deleting user data, spending money, publishing, or messaging others. | Finish authorized preparation, then request permission for the specific action. Do not ask again when existing authorization already covers it. |
 | An environment restriction blocks a required step and no alternative is available within the authorized scope. | Explain the blocked step and cause. Request only the information or permission needed to proceed. |
 
-Before asking, check the conversation for existing decisions and authorization. Do not turn routine implementation choices into approval requests or treat local reversibility as permission for arbitrary changes.
+Before asking, check the conversation for existing decisions and authorization. Reuse confirmed choices within their stated scope. Do not treat convenience, common practice, or reversibility as the user's agreement to a storage destination or sharing decision. Do not turn an unconfirmed choice into a standing default.
 
-When a missing answer determines the implementation direction, ask before doing work that depends on it. Continue independent work while waiting. Silence is not consent. For nonessential preferences, proceed with an explicitly stated default.
+Look up facts that available context or tools can establish. When uncertainty about the user's intent or preferences still affects the result, ask and wait before doing work that depends on the answer. Continue independent work while waiting. Silence is not consent. Merely announcing an assumption does not authorize an unresolved consequential choice.
+
+## Place documents and keep development records
+
+Choose a document's audience and destination before writing it. Keep maintained deliverables for repository users and contributors in the repository, such as installation guides, API and configuration references, migration instructions, and explicitly shared design documentation.
+
+Keep private RFCs, exploratory drafts, discussion notes, investigation material, and development records in a user-confirmed location within the workspace and outside Git repositories and their worktrees. An untracked or ignored directory inside a checkout is still inside the repository. Repository visibility does not change this boundary.
+
+Treat an RFC as private working material by default. A version belongs in the repository only when the user explicitly requests it as a shared deliverable or an established public RFC process requires it. A template alone does not authorize publication. Create an RFC when the task needs one; this policy does not add an RFC phase to every change. Extract approved, shareable conclusions into maintained project documentation when useful, and keep the private working material outside the checkout.
+
+Use the workspace location the user has confirmed. If no location is established, ask before creating or moving documents. Do not invent a fallback in the home directory, a system data directory, or elsewhere outside the workspace. Resolve the destination before writing so that it stays within the workspace and outside Git working trees, including through symlinks. If both conditions cannot be met in the current workspace, explain the constraint and ask the user to choose the storage arrangement.
+
+Maintain detailed development records for large projects, or when the user explicitly requests a record. Small projects and routine edits do not automatically require record files. If applicability is unclear, ask the user before starting a record instead of inventing a size threshold.
+
+When records are required, start when the project work begins, update after meaningful findings, implementation changes, and user decisions, and complete the outcome before handoff. Reuse an existing project record that covers the work instead of creating a new document for each small edit. Retain enough detail to restore context, explain decisions, and reproduce key results:
+
+| Record content | Details to retain |
+|---|---|
+| Task context | Goal, scope, constraints, repository and branch or relevant revisions, and links to external planning material. |
+| Implementation | Changed files and modules, interfaces, configuration, significant logic, and reasons for the chosen approach. |
+| Problems and attempts | Actual symptoms, evidence used to diagnose them, attempted approaches, their results, and reasons for accepting or abandoning a solution. |
+| Decisions | The user's explicit choices, their scope and rationale, and later changes to those choices. Distinguish user decisions from the agent's assumptions and routine implementation choices. |
+| Final changes and effects | The final behavior change and its consequences. Keep expected benefits separate from observed effects. |
+| Verification and continuation | Checks actually performed, useful commands, inputs and results, relevant conditions, evidence locations, and unresolved matters that affect further work. |
+
+Preserve earlier decisions when they change, recording the new decision and its reason. Record the work that actually occurred; do not run extra checks or invent events to populate the record. Redact secrets and unnecessary personal data from notes and logs. Provide the user with the record location in the private handoff.
+
+Share only information appropriate for the intended audience. Keep private record text and identifying local record paths out of repository files, commit messages, PRs, and issues. Publish summaries or other external updates only within the user's authorization.
 
 ## Sequence implementation and verification
 
