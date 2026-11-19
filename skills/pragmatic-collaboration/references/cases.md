@@ -27,6 +27,13 @@ Use the case that matches the wording decision. Apply the underlying principle t
 
 “影响”可以照常使用。这句里的“归因”省略了要解释的对象。改写先交代两个模型的回复长度不同，再写明哪项判断仍有困难。如果上下文给出了具体指标，就用指标名替换“结果差异”。
 
+**汇报续训检查的进展**
+
+- **原句节选**　“我会把报告的判断落回默认训练配置，用两次独立续训之间的波动……”
+- **改写**　“在默认训练配置下，两次独立续训结束时的权重有差异。要判断恢复操作是否放大了差异，我下一步会从同一起点、用同一批数据做多次不中断训练，再把这些运行之间的最终权重差异与两次续训之间的差异作比较。”
+
+默认训练配置是观察结果的条件，直接写在结果前面即可。“波动”在这里指最终权重的差异。两次续训都经过了恢复操作，多次不中断训练能提供一个对照，帮助判断恢复操作是否带来了额外偏差。
+
 ### English
 
 When describing an action, name what will be checked:
@@ -47,6 +54,13 @@ The revised wording lets the user understand the action or blocker without trans
 - **After** “The two models answered the same question and produced answers of different lengths. From this comparison alone, it is hard to tell how much of the difference in results comes from model architecture.”
 
 “Affect” is fine here. “Attribution” leaves out which result needs explaining. The revision gives the observation first, then states what remains difficult to judge. When the metric is known, name it in place of “results.”
+
+**Reporting progress on checkpoint resumption**
+
+- **Before (excerpt)** “I’ll bring the report’s judgment back to the default training configuration, using the fluctuations between two independent resumed runs…”
+- **After** “With the default training settings, two independently resumed runs ended with different weights. To see whether resuming increased that difference, I’ll run training several times without interruption from the same starting point on the same data. I’ll compare the differences in final weights across those runs with the difference between the two resumed runs.”
+
+The default settings describe the conditions of the observation. Naming the final weights makes “fluctuations” concrete. Both observed runs went through resumption, so the planned comparison gives a reference for how much the weights vary across uninterrupted runs.
 
 ## Direct concept names
 

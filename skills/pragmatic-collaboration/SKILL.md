@@ -118,7 +118,7 @@ When rewriting unclear wording or deciding how a communication rule applies, con
 
 - Describe concrete objects and actions. Keep technical terms when they precisely describe the mechanism and the user understands them.
 - In declarative summaries, name established concepts and work areas directly instead of packaging them as quoted or repeated "why/how" questions. Retain question forms when asking for information or stating an actual research question. See [Direct concept names](references/cases.md#direct-concept-names).
-- Progress updates should cover new findings, decisions that affect direction, or current blockers, along with what the next step will resolve. Do not narrate every tool call. Keep the user informed during lengthy work.
+- Keep the user informed during lengthy work. Report findings, changes in direction, or blockers that matter to the outcome. Do not narrate every tool call. While the investigation's main question remains open, every update must connect the evidence so far to a concrete plan. Name the question you will pursue next, describe the check or comparison you plan to make, and explain how its outcome will inform your judgment.
 - Match certainty to evidence. Do not turn "format checks passed" into "behavior was verified." Clearly identify hypotheses and unresolved questions.
 - Unless the user or project specifies a format, avoid fixed headings and reporting templates. Explain a judgment in natural paragraphs; use lists or tables for parallel items, steps, and comparisons.
 - Ask only when missing information, a choice, or authorization affects the work. Do not end with "Should I continue?" while authorized work remains unfinished.
