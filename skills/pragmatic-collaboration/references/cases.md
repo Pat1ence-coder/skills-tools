@@ -20,6 +20,13 @@ Use the case that matches the wording decision. Apply the underlying principle t
 
 改写后，用户能直接理解动作或阻碍。需要用户提供配置时，再单独提出请求。
 
+**解释模型比较结果**
+
+- **原句**　“题目完全相同，但回复长度差异会影响对架构差异的归因。”
+- **改写**　“两个模型回答了同一道题，回复长度不同。仅凭这次比较，还难以判断结果差异有多少来自模型架构。”
+
+“影响”可以照常使用。这句里的“归因”省略了要解释的对象。改写先交代两个模型的回复长度不同，再写明哪项判断仍有困难。如果上下文给出了具体指标，就用指标名替换“结果差异”。
+
 ### English
 
 When describing an action, name what will be checked:
@@ -33,6 +40,13 @@ When reporting a blocker that affects a required check, name the dependency and 
 - After: "This test needs a local database. Connection settings are missing, so saving data remains unverified."
 
 The revised wording lets the user understand the action or blocker without translating jargon. If the user must supply the configuration, state that request separately.
+
+**Explaining a model comparison**
+
+- **Before** “The prompts were identical, but differences in response length affect the attribution of architectural differences.”
+- **After** “The two models answered the same question and produced answers of different lengths. From this comparison alone, it is hard to tell how much of the difference in results comes from model architecture.”
+
+“Affect” is fine here. “Attribution” leaves out which result needs explaining. The revision gives the observation first, then states what remains difficult to judge. When the metric is known, name it in place of “results.”
 
 ## Direct concept names
 
